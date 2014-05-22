@@ -7,6 +7,7 @@ import time
 import datetime
 reader = csv.reader(sys.stdin, delimiter='\t')
 writer = csv.writer(sys.stdout, delimiter='\t', quotechar='"', quoting=csv.QUOTE_ALL)
+""" mapper routine to output student and timestamp hour pairs"""
 def mapper():
 	for line in reader:
 	    if len(line) < 9:
@@ -17,6 +18,7 @@ def mapper():
 		continue
             else:
                 myhour = mydate.tm_hour
+                #output studentid and hour of the post
 	        writer.writerow([line[3],myhour])
 mapper()
 		

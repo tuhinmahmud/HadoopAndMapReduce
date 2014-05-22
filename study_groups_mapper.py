@@ -9,12 +9,10 @@ import datetime
 #import dateutil.parser
 reader = csv.reader(sys.stdin, delimiter='\t')
 writer = csv.writer(sys.stdout, delimiter='\t', quotechar='"', quoting=csv.QUOTE_ALL)
+""" mapper routine that outputs <key,value> pairs for each line
+of input stream where key=tag and value=<author_id , type> . """
 def mapper():
-	i=0
 	for line in reader:
-	    i+=1
-	    #if i == 1:
-	    #   continue
 	    if len(line) < 9:
 		continue
             id  = line[0]
@@ -22,6 +20,8 @@ def mapper():
             abs_parent_id  = line[7]
             body =line[4]
             author_id =line[3]
+            #group the question and answers by id and abs_parent_id so that 
+            # reducer is able to work on related quesion and answers
             if node_type == "question":
 	        writer.writerow([id,author_id,node_type])
             if node_type == "answer":
